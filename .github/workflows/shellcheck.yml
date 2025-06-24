@@ -14,7 +14,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Run ShellCheck
-        uses: ludeeus/action-shellcheck@v1
-        with:
-          files: '**/*.sh'
+      - name: Install ShellCheck and run
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y shellcheck
+          shellcheck **/*.sh
