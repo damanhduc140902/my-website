@@ -1,0 +1,24 @@
+name: 'Proselint'
+description: 'Run proselint on markdown files'
+inputs:
+  files:
+    description: 'Glob pattern for markdown files'
+    required: false
+    default: '**/*.md'
+runs:
+  using: 'composite'
+  steps:
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+    - name: Install proselint
+      run: pip install proselint
+    - name: Run proselint
+      shell: bash
+      run: |
+        shopt -s globstar nullglob
+        for file in ${{ inputs.files }}; do
+          echo "Linting $file"
+          proselint "$file"
+        done
