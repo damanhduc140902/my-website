@@ -12,13 +12,16 @@ runs:
       uses: actions/setup-python@v4
       with:
         python-version: '3.x'
+
     - name: Install proselint
       run: pip install proselint
-    - name: Run proselint
       shell: bash
+
+    - name: Run proselint
       run: |
         shopt -s globstar nullglob
-        for file in ${{ inputs.files }}; do
-          echo "Linting $file"
-          proselint "$file"
+        for md in ${{ inputs.files }}; do
+          echo "Linting $md"
+          proselint "$md"
         done
+      shell: bash
